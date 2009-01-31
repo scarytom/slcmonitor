@@ -32,11 +32,13 @@ class ManageBorrowers(webapp.RequestHandler):
   def get(self):
     self.response.out.write('<html><body>')
 
-    borrowers = Borrower.gql('ORDER BY name')
+    borrowers = Borrower.gql('')
     
+    self.response.out.write('<ul>')
     for borrower in borrowers:
-      self.response.out.write('Borrower <b>%s</b>' % cgi.escape(borrower.identity.nickname()))
-      
+      self.response.out.write('<li>Borrower <b>%s</b></li>' % cgi.escape(borrower.identity.nickname()))
+    self.response.out.write('</ul>')
+    
     # Write the submission form and the footer of the page
     self.response.out.write("""
           <form action="/addborrower" method="post">
@@ -56,16 +58,18 @@ class ManageLenders(webapp.RequestHandler):
   def get(self):
     self.response.out.write('<html><body>')
 
-    lenders = Lender.gql('ORDER BY name')
+    lenders = Lender.gql('')
     
+    self.response.out.write('<ul>')
     for lender in lenders:
-      self.response.out.write('Lender <b>%s</b>' % cgi.escape(lender.name))
+      self.response.out.write('<li>Lender <b>%s</b></li>' % cgi.escape(lender.name))
+    self.response.out.write('</ul>')
       
     # Write the submission form and the footer of the page
     self.response.out.write("""
           <form action="/addlender" method="post">
-            <div><textarea name="lenderName" rows="1" cols="60"></textarea></div>
-            <div><input type="submit" value="Add Lender"></div>
+            <div><input type="text" name="lenderName"/></div>
+            <div><input type="submit" value="Add Lender"/></div>
           </form>
         </body>
       </html>""")
@@ -73,7 +77,7 @@ class ManageLenders(webapp.RequestHandler):
 class AddLender(webapp.RequestHandler):
     def post(self):
         lender = Lender()
-        lender.name = 'TomTest'
+        lender.name = self.request.get('lenderName')
         lender.put()
         self.redirect('/lenders')
 
