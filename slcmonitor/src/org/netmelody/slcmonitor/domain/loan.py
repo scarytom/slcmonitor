@@ -1,6 +1,6 @@
-import borrower
-import lender
-import ledger
+from borrower import Borrower
+from lender import Lender
+from ledger import Ledger
 from google.appengine.ext import db
 
 class Loan(db.Model):

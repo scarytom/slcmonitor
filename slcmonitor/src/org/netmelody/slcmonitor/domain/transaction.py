@@ -1,5 +1,5 @@
-import ledger
-import money
+from ledger import Ledger
+from money import Money
 from google.appengine.ext import db
 
 class Transaction(db.Model):
