@@ -1,5 +1,5 @@
-import lender
-import rate
+from lender import Lender
+from rate import Rate
 from google.appengine.ext import db
 
 class RateChange(db.Model):
