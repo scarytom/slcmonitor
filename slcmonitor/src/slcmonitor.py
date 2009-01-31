@@ -19,8 +19,10 @@ class MainPage(webapp.RequestHandler):
             <h1>SLC Monitor</h1>""")
         self.response.out.write('\n            Hello, ' + user.nickname() + '\n')
         self.response.out.write("""
-            <a href="lenders">Manage Lenders</a>
-            <a href="borrowers">Manage Borrowers</a>
+            <ul>
+            <li><a href="lenders">Manage Lenders</a></li>
+            <li><a href="borrowers">Manage Borrowers</a></li>
+            </ul>
           </body>
         </html>""")
     else:
