@@ -1,9 +1,12 @@
 import cgi
+import os
 
 from google.appengine.api import users
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
+
 from google.appengine.ext import db
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
+from google.appengine.ext.webapp.util import run_wsgi_app
 
 from org.netmelody.slcmonitor.domain.lender import Lender
 from org.netmelody.slcmonitor.domain.borrower import Borrower
@@ -12,27 +15,14 @@ from org.netmelody.slcmonitor.domain.rate import Rate
 
 class ManageLenders(webapp.RequestHandler):
   def get(self):
-    self.response.out.write('<html><body>')
-
     lenders = Lender.gql('')
     
-    self.response.out.write('<ul>')
-    for lender in lenders:
-      self.response.out.write('<li>Lender <b>%s</b>' % cgi.escape(lender.name))
-      self.response.out.write("""<form action="/editlender" method="post">
-                                   <div><input type="hidden" name="lenderKey" value="%s"/></div>
-                                   <div><input type="submit" value="Edit"/></div>
-                                 </form></li>""" % lender.key())
-    self.response.out.write('</ul>')
-      
-    # Write the submission form and the footer of the page
-    self.response.out.write("""
-          <form action="/addlender" method="post">
-            <div><input type="text" name="lenderName"/></div>
-            <div><input type="submit" value="Add Lender"/></div>
-          </form>
-        </body>
-      </html>""")
+    template_values = {
+      'lenders': lenders
+    }
+    
+    path = os.path.join(os.path.dirname(__file__), '../templates/lenderlist.html')
+    self.response.out.write(template.render(path, template_values))
 
 class AddLender(webapp.RequestHandler):
     def post(self):
@@ -40,9 +30,15 @@ class AddLender(webapp.RequestHandler):
         lender.name = self.request.get('lenderName')
         lender.put()
         self.redirect('/lenders')
+        
+class DeleteLender(webapp.RequestHandler):
+    def post(self):
+        lender = Lender.get(self.request.get('lenderKey'))
+        lender.delete()
+        self.redirect('/lenders')
 
 class EditLender(webapp.RequestHandler):
-    def post(self):
+    def get(self):
         lender = Lender.get(self.request.get('lenderKey'))
         self.response.out.write('<html><body>')
         self.response.out.write('Lender <b>%s</b>' % cgi.escape(lender.name))

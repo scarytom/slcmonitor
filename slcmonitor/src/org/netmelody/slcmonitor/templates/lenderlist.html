@@ -1,0 +1,37 @@
+<html>
+  <body>
+    <h1>Manage Lenders</h1>
+    <p>Lenders provide a rate at which interest is charged on the money that they lend. This rate may vary over time.</p>
+    
+    <h2>Add a New Lender</h2>
+    <form action="/addlender" method="post">
+      <div><input type="text" name="lenderName"/></div>
+      <div><input type="submit" value="Add Lender"/></div>
+    </form>
+
+    <h2>Manage Existing Lenders</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Current Rate</th>
+        <th>Action</th>
+      </tr>
+      {% for lender in lenders %}
+        <tr>
+          <td>{{ lender.name|escape }}</td>
+          <td>{{ lender.currentrate }}</td>
+          <td>
+            <form action="/editlender" method="get">
+              <div><input type="hidden" name="lenderKey" value="{{ lender.key }}"/></div>
+              <div><input type="submit" value="Edit"/></div>
+            </form>
+            <form action="/deletelender" method="post">
+              <div><input type="hidden" name="lenderKey" value="{{ lender.key }}"/></div>
+              <div><input type="submit" value="Delete"/></div>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
