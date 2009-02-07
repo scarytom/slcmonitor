@@ -19,7 +19,7 @@
       {% for lender in lenders %}
         <tr>
           <td>{{ lender.name|escape }}</td>
-          <td>{{ lender.currentrate }}</td>
+          <td>{{ lender.currentRate }}</td>
           <td>
             <form action="/editlender" method="get">
               <div><input type="hidden" name="lenderKey" value="{{ lender.key }}"/></div>
