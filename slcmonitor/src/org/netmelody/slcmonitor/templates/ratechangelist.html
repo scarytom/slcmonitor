@@ -1,0 +1,38 @@
+<html>
+  <body>
+    <h1>Manage Rate Changes</h1>
+    <p>Rates are offered by Lenders on the money that they lend. These rates vary over time.</p>
+    
+    <h2>Add a new Rate</h2>
+    <form action="/addratechange" method="post">
+      {{ form.as_p }}
+      <div><input type="hidden" name="lenderKey" value="{{ lender.key }}"/></div>
+      <div><input type="submit" value="Add Rate Change"/></div>
+    </form>
+
+    <h2>Manage Existing Rates</h2>
+    <table>
+      <tr>
+        <th>Start Date</th>
+        <th>Rate</th>
+        <th>Action</th>
+      </tr>
+      {% for rateChange in lender.rateChanges %}
+        <tr>
+          <td>{{ rateChange.startDate }}</td>
+          <td>{{ rateChange.rate.value }}</td>
+          <td>
+            <form action="/editratechange" method="get">
+              <div><input type="hidden" name="rateChangeKey" value="{{ rateChange.key }}"/></div>
+              <div><input type="submit" value="Edit"/></div>
+            </form>
+            <form action="/deleteratechange" method="post">
+              <div><input type="hidden" name="rateChangeKey" value="{{ rateChange.key }}"/></div>
+              <div><input type="submit" value="Delete"/></div>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
