@@ -1,0 +1,38 @@
+<html>
+  <body>
+    <h1>Manage Borrower</h1>
+    <p>As a Borrower, you take out Loans from Lenders.</p>
+    
+    <h2>Add a New Loan</h2>
+    <form action="/addloan" method="post">
+      <div><input type="text" name="title"/></div>
+      <div><input type="text" name="lenderName"/></div>
+      <div><input type="submit" value="Add Loan"/></div>
+    </form>
+
+    <h2>Manage Existing Loans</h2>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Lender</th>
+        <th>Action</th>
+      </tr>
+      {% for loan in loans %}
+        <tr>
+          <td>{{ loan.title|escape }}</td>
+          <td>{{ loan.lender.name|escape }}</td>
+          <td>
+            <form action="/editloan" method="get">
+              <div><input type="hidden" name="loanKey" value="{{ loan.key }}"/></div>
+              <div><input type="submit" value="Edit"/></div>
+            </form>
+            <form action="/deleteloan" method="post">
+              <div><input type="hidden" name="loanKey" value="{{ loan.key }}"/></div>
+              <div><input type="submit" value="Delete"/></div>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

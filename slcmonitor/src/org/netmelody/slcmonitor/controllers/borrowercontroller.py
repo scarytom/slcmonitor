@@ -12,26 +12,24 @@ from org.netmelody.slcmonitor.domain.rate import Rate
 
 class ManageBorrowers(webapp.RequestHandler):
   def get(self):
-    self.response.out.write('<html><body>')
-
     borrowers = Borrower.gql('')
     
-    self.response.out.write('<ul>')
-    for borrower in borrowers:
-      self.response.out.write('<li>Borrower <b>%s</b></li>' % cgi.escape(borrower.identity.nickname()))
-    self.response.out.write('</ul>')
+    template_values = {
+      'borrowers': borrowers
+    }
     
-    # Write the submission form and the footer of the page
-    self.response.out.write("""
-          <form action="/addborrower" method="post">
-            <div><input type="submit" value="Add Borrower"></div>
-          </form>
-        </body>
-      </html>""")
+    path = os.path.join(os.path.dirname(__file__), '../templates/borrowerlist.html')
+    self.response.out.write(template.render(path, template_values))
 
 class AddBorrower(webapp.RequestHandler):
     def post(self):
         borrower = Borrower()
         borrower.identity = users.get_current_user()
         borrower.put()
+        self.redirect('/borrowers')
+        
+class DeleteBorrower(webapp.RequestHandler):
+    def post(self):
+        borrower = Borrower.get(self.request.get('borrowerKey'))
+        borrower.delete()
         self.redirect('/borrowers')

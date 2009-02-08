@@ -1,0 +1,36 @@
+<html>
+  <body>
+    <h1>Manage Borrowers</h1>
+    <p>Borrowers take loans out from Lenders.</p>
+    
+    <h2>Register myself as a Borrower</h2>
+    <form action="/addborrower" method="post">
+      <div><input type="submit" value="Register"/></div>
+    </form>
+
+    <h2>Manage my Loans</h2>
+    <form action="/loans" method="get">
+      <div><input type="hidden" name="borrowerKey" value="{{ borrower.key }}"/></div>
+      <div><input type="submit" value="Manage"/></div>
+    </form>
+
+    <h2>Manage Existing Borrowers</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+      {% for borrower in borrowers %}
+        <tr>
+          <td>{{ borrower.identity.nickname|escape }}</td>
+          <td>
+            <form action="/deleteborrower" method="post">
+              <div><input type="hidden" name="borrowerKey" value="{{ borrower.key }}"/></div>
+              <div><input type="submit" value="Delete"/></div>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
