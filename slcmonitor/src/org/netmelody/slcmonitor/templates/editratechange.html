@@ -1,0 +1,13 @@
+<html>
+  <body>
+    <h1>Edit Rate Change</h1>
+    <p>Rates are offered by Lenders on the money that they lend. These rates vary over time.</p>
+    
+    <form action="/editratechange" method="post">
+      {{ form.as_p }}
+      <div><input type="hidden" name="rateChangeKey" value="{{ rateChange.key }}"/></div>
+      <div><input type="submit" value="Save Rate Change"/></div>
+    </form>
+
+  </body>
+</html>

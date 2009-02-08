@@ -69,4 +69,36 @@ class AddRateChange(webapp.RequestHandler):
             rateChange.lender = Lender.get(self.request.get('lenderKey'))
             rateChange.rate = rate
             rateChange.put()
-        self.redirect('/editlender?lenderKey=' + self.request.get('lenderKey'))
+        self.redirect('/editlender?lenderKey=%s' % rateChange.lender.key())
+       
+class DeleteRateChange(webapp.RequestHandler):
+    def post(self):
+        rateChange = RateChange.get(self.request.get('rateChangeKey'))
+        rateChange.delete()
+        self.redirect('/editlender?lenderKey=%s' % rateChange.lender.key())
+
+class EditRateChange(webapp.RequestHandler):
+    def get(self):
+        rateChange = RateChange.get(self.request.get('rateChangeKey'))
+        form = RateChangeForm(instance=rateChange)
+        
+        template_values = {
+            'rateChange': rateChange,
+            'form': RateChangeForm()
+        }
+    
+        path = os.path.join(os.path.dirname(__file__), '../templates/editratechange.html')
+        self.response.out.write(template.render(path, template_values))
+    def post(self):
+        data = RateChangeForm(data=self.request.POST)
+        if data.is_valid():
+            rateChange = data.save(commit=False)
+        
+            existingRateChange = RateChange.get(self.request.get('rateChangeKey'))
+            
+            existingRateChange.rate.value = data._cleaned_data()['rateValue']
+            existingRateChange.rate.put()
+        
+            existingRateChange.startDate = rateChange.startDate
+            existingRateChange.put()
+        self.redirect('/editlender?lenderKey=%s' % existingRateChange.lender.key())
