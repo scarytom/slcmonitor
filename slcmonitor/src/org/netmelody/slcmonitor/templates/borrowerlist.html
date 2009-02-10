@@ -10,7 +10,7 @@
 
     <h2>Manage my Loans</h2>
     <form action="/loans" method="get">
-      <div><input type="hidden" name="borrowerKey" value="{{ borrower.key }}"/></div>
+      <div><input type="hidden" name="borrowerKey" value="{{ currentBorrower.key }}"/></div>
       <div><input type="submit" value="Manage"/></div>
     </form>
 

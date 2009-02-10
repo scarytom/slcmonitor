@@ -9,10 +9,9 @@ from org.netmelody.slcmonitor.controllers.lendercontroller import EditRateChange
 from org.netmelody.slcmonitor.controllers.borrowercontroller import ManageBorrowers
 from org.netmelody.slcmonitor.controllers.borrowercontroller import AddBorrower
 from org.netmelody.slcmonitor.controllers.borrowercontroller import DeleteBorrower
-from org.netmelody.slcmonitor.controllers.loancontroller import ManageLoan
+from org.netmelody.slcmonitor.controllers.loancontroller import ManageLoans
 from org.netmelody.slcmonitor.controllers.loancontroller import AddLoan
 from org.netmelody.slcmonitor.controllers.loancontroller import DeleteLoan
-from org.netmelody.slcmonitor.controllers.loancontroller import EditLoan
 
 
 controller_map = [('/',               MainPage),
@@ -36,5 +35,4 @@ controller_map = [('/',               MainPage),
                   ('/loans',            ManageLoans),
                   ('/addloan',          AddLoan),
                   ('/deleteloan',       DeleteLoan),
-                  ('/editloan',         EditLoan)
                   ]

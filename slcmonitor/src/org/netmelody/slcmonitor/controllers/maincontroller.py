@@ -25,7 +25,9 @@ class MainPage(webapp.RequestHandler):
             <li><a href="lenders">Manage Lenders</a></li>
             <li><a href="borrowers">Manage Borrowers</a></li>
             </ul>
+            
+            <a href="%s">log out</a>
           </body>
-        </html>""")
+        </html>""" % users.create_logout_url("/"))
     else:
       self.redirect(users.create_login_url(self.request.uri))

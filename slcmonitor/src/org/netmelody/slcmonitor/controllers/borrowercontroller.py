@@ -1,20 +1,26 @@
 import cgi
+import os
 
 from google.appengine.api import users
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
+from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.ext.db import djangoforms
 
-from org.netmelody.slcmonitor.domain.lender import Lender
 from org.netmelody.slcmonitor.domain.borrower import Borrower
-from org.netmelody.slcmonitor.domain.ratechange import RateChange
-from org.netmelody.slcmonitor.domain.rate import Rate
 
 class ManageBorrowers(webapp.RequestHandler):
   def get(self):
+
+    user = users.get_current_user()
+    q = db.GqlQuery("SELECT * FROM Borrower WHERE identity = :1", user)
+    currentBorrower = q.get()
+    
     borrowers = Borrower.gql('')
     
     template_values = {
+      'currentBorrower' : currentBorrower,
       'borrowers': borrowers
     }
     
