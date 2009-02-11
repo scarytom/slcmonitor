@@ -5,6 +5,7 @@
     
     <h2>Add a New Lender</h2>
     <form action="/addlender" method="post">
+      <div><input type="hidden" name="borrowerKey" value="{{ currentBorrower.key }}"/></div>
       <div><input type="text" name="lenderName"/></div>
       <div><input type="submit" value="Add Lender"/></div>
     </form>

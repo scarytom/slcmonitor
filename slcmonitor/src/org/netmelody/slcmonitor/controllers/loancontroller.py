@@ -9,13 +9,14 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.db import djangoforms
 
 from org.netmelody.slcmonitor.domain.loan import Loan
+from org.netmelody.slcmonitor.domain.borrower import Borrower
 
 class ManageLoans(webapp.RequestHandler):
   def get(self):
-    loans = Loan.gql('')
+    borrower = Borrower.get(self.request.get('borrowerKey'))
     
     template_values = {
-      'loans': loans
+      'borrower' : borrower
     }
     
     path = os.path.join(os.path.dirname(__file__), '../templates/loanlist.html')
@@ -23,13 +24,16 @@ class ManageLoans(webapp.RequestHandler):
 
 class AddLoan(webapp.RequestHandler):
     def post(self):
+        borrower = Borrower.get(self.request.get('borrowerKey'))
+        
         loan = Loan()
+        loan.borrower = borrower
         loan.name = self.request.get('loanName')
         loan.put()
-        self.redirect('/loans')
+        self.redirect('/loans?borrowerKey=%s' % borrower.key())
         
 class DeleteLoan(webapp.RequestHandler):
     def post(self):
         loan = Loan.get(self.request.get('loanKey'))
         loan.delete()
-        self.redirect('/loans')
+        self.redirect('/loans?borrowerKey=%s' % loan.borrower.key())

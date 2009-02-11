@@ -5,6 +5,7 @@
     
     <h2>Add a New Loan</h2>
     <form action="/addloan" method="post">
+      <div><input type="hidden" name="borrowerKey" value="{{ borrower.key }}"/></div>
       <div><input type="text" name="title"/></div>
       <div><input type="text" name="lenderName"/></div>
       <div><input type="submit" value="Add Loan"/></div>
@@ -17,7 +18,7 @@
         <th>Lender</th>
         <th>Action</th>
       </tr>
-      {% for loan in loans %}
+      {% for loan in borrower.loans %}
         <tr>
           <td>{{ loan.title|escape }}</td>
           <td>{{ loan.lender.name|escape }}</td>
