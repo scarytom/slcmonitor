@@ -37,3 +37,14 @@ class DeleteLoan(webapp.RequestHandler):
         loan = Loan.get(self.request.get('loanKey'))
         loan.delete()
         self.redirect('/loans?borrowerKey=%s' % loan.borrower.key())
+        
+class EditLoan(webapp.RequestHandler):
+    def get(self):
+      loan = Loan.get(self.request.get('loanKey'))
+      
+      template_values = {
+        'loan' : loan
+      }
+    
+      path = os.path.join(os.path.dirname(__file__), '../templates/loandetail.html')
+      self.response.out.write(template.render(path, template_values))
