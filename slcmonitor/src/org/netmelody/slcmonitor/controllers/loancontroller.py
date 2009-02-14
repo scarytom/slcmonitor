@@ -28,7 +28,7 @@ class AddLoan(webapp.RequestHandler):
         
         loan = Loan()
         loan.borrower = borrower
-        loan.name = self.request.get('loanName')
+        loan.title = self.request.get('title')
         loan.put()
         self.redirect('/loans?borrowerKey=%s' % borrower.key())
         
