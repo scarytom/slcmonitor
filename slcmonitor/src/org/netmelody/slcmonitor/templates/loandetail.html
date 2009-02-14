@@ -5,9 +5,8 @@
     
     <h2>Record a new transaction</h2>
     <form action="/addtransaction" method="post">
+      {{ form.as_p }}
       <div><input type="hidden" name="loanKey" value="{{ loan.key }}"/></div>
-      <div><input type="text" name="date"/></div>
-      <div><input type="text" name="amount"/></div>
       <div><input type="text" name="type"/></div>
       <div><input type="submit" value="Record Transaction"/></div>
     </form>

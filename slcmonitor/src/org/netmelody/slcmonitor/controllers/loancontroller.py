@@ -11,6 +11,8 @@ from google.appengine.ext.db import djangoforms
 from org.netmelody.slcmonitor.domain.loan import Loan
 from org.netmelody.slcmonitor.domain.borrower import Borrower
 
+from transactioncontroller import TransactionForm
+
 class ManageLoans(webapp.RequestHandler):
   def get(self):
     borrower = Borrower.get(self.request.get('borrowerKey'))
@@ -43,7 +45,8 @@ class EditLoan(webapp.RequestHandler):
       loan = Loan.get(self.request.get('loanKey'))
       
       template_values = {
-        'loan' : loan
+        'loan' : loan,
+        'form' : TransactionForm()
       }
     
       path = os.path.join(os.path.dirname(__file__), '../templates/loandetail.html')

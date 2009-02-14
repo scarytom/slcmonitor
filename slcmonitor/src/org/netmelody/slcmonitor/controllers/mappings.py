@@ -13,28 +13,34 @@ from org.netmelody.slcmonitor.controllers.loancontroller import ManageLoans
 from org.netmelody.slcmonitor.controllers.loancontroller import AddLoan
 from org.netmelody.slcmonitor.controllers.loancontroller import DeleteLoan
 from org.netmelody.slcmonitor.controllers.loancontroller import EditLoan
+from org.netmelody.slcmonitor.controllers.transactioncontroller import AddTransaction
+from org.netmelody.slcmonitor.controllers.transactioncontroller import DeleteTransaction
+from org.netmelody.slcmonitor.controllers.transactioncontroller import EditTransaction
 
 
-controller_map = [('/',               MainPage),
+controller_map = [('/',                  MainPage),
                   
                   # Lenders
-                  ('/lenders',          ManageLenders),
-                  ('/addlender',        AddLender),
-                  ('/deletelender',     DeleteLender),
-                  ('/editlender',       EditLender),
+                  ('/lenders',           ManageLenders),
+                  ('/addlender',         AddLender),
+                  ('/deletelender',      DeleteLender),
+                  ('/editlender',        EditLender),
                   
                   # Rate Changes
-                  ('/addratechange',    AddRateChange),
-                  ('/deleteratechange', DeleteRateChange),
-                  ('/editratechange',   EditRateChange),
+                  ('/addratechange',     AddRateChange),
+                  ('/deleteratechange',  DeleteRateChange),
+                  ('/editratechange',    EditRateChange),
                   
                   # Borrowers
-                  ('/borrowers',        ManageBorrowers),
-                  ('/addborrower',      AddBorrower),
-                  ('/deleteborrower',   DeleteBorrower),
+                  ('/borrowers',         ManageBorrowers),
+                  ('/addborrower',       AddBorrower),
+                  ('/deleteborrower',    DeleteBorrower),
                   
-                  ('/loans',            ManageLoans),
-                  ('/addloan',          AddLoan),
-                  ('/deleteloan',       DeleteLoan),
-                  ('/editloan',         EditLoan)
-                  ]
+                  ('/loans',             ManageLoans),
+                  ('/addloan',           AddLoan),
+                  ('/deleteloan',        DeleteLoan),
+                  ('/editloan',          EditLoan),
+                  
+                  ('/addtransaction',    AddTransaction),
+                  ('/deletetransaction', DeleteTransaction),
+                  ('/edittransaction',   EditTransaction)]
