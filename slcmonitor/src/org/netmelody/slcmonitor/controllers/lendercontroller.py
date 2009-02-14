@@ -48,7 +48,7 @@ class EditLender(webapp.RequestHandler):
         
         template_values = {
             'lender': lender,
-            'form': RateChangeForm(),
+            'form': RateChangeForm()
         }
     
         path = os.path.join(os.path.dirname(__file__), '../templates/ratechangelist.html')
