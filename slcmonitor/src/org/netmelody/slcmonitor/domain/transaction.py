@@ -1,11 +1,11 @@
-from ledger import Ledger
+from loan import Loan
 from google.appengine.ext import db
 from google.appengine.ext.db import polymodel
 
 class Transaction(polymodel.PolyModel):
-    date = db.DateProperty()
-    amount = db.IntegerProperty()
-    ledger = db.ReferenceProperty(Ledger, collection_name='transactions')
+  date = db.DateProperty()
+  amount = db.IntegerProperty()
+  loan = db.ReferenceProperty(Loan, collection_name='transactions')
     
 class Withdrawal(Transaction):
   None
