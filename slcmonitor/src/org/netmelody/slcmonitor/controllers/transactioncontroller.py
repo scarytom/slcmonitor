@@ -40,7 +40,6 @@ class AddTransaction(webapp.RequestHandler):
         
         if data.is_valid():
             transaction = data.save(commit=False)
-            transaction.loan = loan
-            transaction.put()
+            loan.makeWithdrawal(transaction.date, transaction.amount)
         
         self.redirect('/editloan?loanKey=%s' % loan.key())
