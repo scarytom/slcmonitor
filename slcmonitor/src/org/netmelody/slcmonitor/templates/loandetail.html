@@ -11,66 +11,18 @@
       <div><input type="submit" value="Record Transaction"/></div>
     </form>
 
-    <h2>Withdrawals</h2>
+    <h2>Transactions</h2>
     <table>
       <tr>
         <th>Date</th>
+        <th>Type</th>
         <th>Amount</th>
         <th>Action</th>
       </tr>
-      {% for transaction in loan.withdrawals.transactions %}
+      {% for transaction in loan.transactions %}
         <tr>
           <td>{{ transaction.date|escape }}</td>
-          <td>{{ transaction.amount|escape }}</td>
-          <td>
-            <form action="/edittransaction" method="get">
-              <div><input type="hidden" name="transactionKey" value="{{ transaction.key }}"/></div>
-              <div><input type="submit" value="Edit"/></div>
-            </form>
-            <form action="/deletetransaction" method="post">
-              <div><input type="hidden" name="transactionKey" value="{{ transaction.key }}"/></div>
-              <div><input type="submit" value="Delete"/></div>
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
-    
-    <h2>Dated Repayments</h2>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Action</th>
-      </tr>
-      {% for transaction in loan.datedRepayments.transactions %}
-        <tr>
-          <td>{{ transaction.date|escape }}</td>
-          <td>{{ transaction.amount|escape }}</td>
-          <td>
-            <form action="/edittransaction" method="get">
-              <div><input type="hidden" name="transactionKey" value="{{ transaction.key }}"/></div>
-              <div><input type="submit" value="Edit"/></div>
-            </form>
-            <form action="/deletetransaction" method="post">
-              <div><input type="hidden" name="transactionKey" value="{{ transaction.key }}"/></div>
-              <div><input type="submit" value="Delete"/></div>
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
-    
-    <h2>Distributed Repayments</h2>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Action</th>
-      </tr>
-      {% for transaction in loan.distributedRepayments.transactions %}
-        <tr>
-          <td>{{ transaction.date|escape }}</td>
+          <td>{{ transaction.type|escape }}</td>
           <td>{{ transaction.amount|escape }}</td>
           <td>
             <form action="/edittransaction" method="get">
