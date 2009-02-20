@@ -1,8 +1,5 @@
 from borrower import Borrower
 from lender import Lender
-from transaction import Withdrawal
-from transaction import DatedRepayment
-from transaction import DistributedRepayment
 from google.appengine.ext import db
 
 class Loan(db.Model):
@@ -11,13 +8,16 @@ class Loan(db.Model):
     borrower = db.ReferenceProperty(Borrower, collection_name='loans')
     
     def makeWithdrawal(self, date, amount):
-        __createTransaction(Withdrawal(), date, amount)
+        transactionModule = __import__('transaction')
+        __createTransaction(transactionModule.Withdrawal(), date, amount)
 
     def makeDatedRepayment(self, date, amount):
-        __createTransaction(DatedRepayment(), date, amount)
+        transactionModule = __import__('transaction')
+        __createTransaction(transactionModule.DatedRepayment(), date, amount)
         
     def makeDistributedRepayment(self, date, amount):
-        __createTransaction(DistributedRepayment(), date, amount)
+        transactionModule = __import__('transaction')
+        __createTransaction(transactionModule.DistributedRepayment(), date, amount)
         
     def __createTransaction(self, transaction, date, amount):
         transaction.amount = amount
