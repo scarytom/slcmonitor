@@ -1,26 +1,25 @@
-from borrower import Borrower
-from lender import Lender
+import core
+
+from transaction import Withdrawal
+from transaction import DatedRepayment
+from transaction import DistributedRepayment
+
 from google.appengine.ext import db
 
-class Loan(db.Model):
+class Loan(core.AbstractLoan):
     title = db.StringProperty()
-    lender = db.ReferenceProperty(Lender, collection_name='loans')
-    borrower = db.ReferenceProperty(Borrower, collection_name='loans')
     
-    def makeWithdrawal(self, date, amount):
-        transactionModule = __import__('transaction')
-        __createTransaction(transactionModule.Withdrawal(), date, amount)
-
-    def makeDatedRepayment(self, date, amount):
-        transactionModule = __import__('transaction')
-        __createTransaction(transactionModule.DatedRepayment(), date, amount)
-        
-    def makeDistributedRepayment(self, date, amount):
-        transactionModule = __import__('transaction')
-        __createTransaction(transactionModule.DistributedRepayment(), date, amount)
-        
-    def __createTransaction(self, transaction, date, amount):
+    def _createTransaction(self, transaction, date, amount):
         transaction.amount = amount
         transaction.date = date
         transaction.loan = self
         transaction.put()
+    
+    def makeWithdrawal(self, date, amount):
+        self._createTransaction(Withdrawal(), date, amount)
+
+    def makeDatedRepayment(self, date, amount):
+        self._createTransaction(DatedRepayment(), date, amount)
+        
+    def makeDistributedRepayment(self, date, amount):
+        self._createTransaction(DistributedRepayment(), date, amount)

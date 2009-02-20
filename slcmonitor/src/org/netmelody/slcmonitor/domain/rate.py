@@ -1,4 +1,6 @@
+import core
+
 from google.appengine.ext import db
 
-class Rate(db.Model):
+class Rate(core.AbstractRate):
     value = db.IntegerProperty()

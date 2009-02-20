@@ -1,8 +1,6 @@
-from lender import Lender
-from rate import Rate
+import core
+
 from google.appengine.ext import db
 
-class RateChange(db.Model):
+class RateChange(core.AbstractRateChange):
     startDate = db.DateProperty()
-    rate = db.ReferenceProperty(Rate)
-    lender = db.ReferenceProperty(Lender, collection_name='rateChanges')

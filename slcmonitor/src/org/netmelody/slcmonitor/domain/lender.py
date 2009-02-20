@@ -1,7 +1,8 @@
-from google.appengine.ext import db
-#from ratechange import RateChange
+import core
 
-class Lender(db.Model):
+from google.appengine.ext import db
+
+class Lender(core.AbstractLender):
     name = db.StringProperty()
     # List of rate changes
     
