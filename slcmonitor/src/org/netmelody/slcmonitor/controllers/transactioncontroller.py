@@ -13,7 +13,7 @@ from org.netmelody.slcmonitor.domain.transaction import Transaction
 
 class EditTransaction(webapp.RequestHandler):
   def get(self):
-    transaction = Borrower.get(self.request.get('transactionKey'))
+    transaction = Transaction.get(self.request.get('transactionKey'))
     
     template_values = {
       'transaction' : borrower
