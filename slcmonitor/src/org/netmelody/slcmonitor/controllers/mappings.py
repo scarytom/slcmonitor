@@ -3,9 +3,9 @@ from org.netmelody.slcmonitor.controllers.lendercontroller import ManageLenders
 from org.netmelody.slcmonitor.controllers.lendercontroller import AddLender
 from org.netmelody.slcmonitor.controllers.lendercontroller import DeleteLender
 from org.netmelody.slcmonitor.controllers.lendercontroller import EditLender
-from org.netmelody.slcmonitor.controllers.lendercontroller import AddRateChange
-from org.netmelody.slcmonitor.controllers.lendercontroller import DeleteRateChange
-from org.netmelody.slcmonitor.controllers.lendercontroller import EditRateChange
+from org.netmelody.slcmonitor.controllers.ratechangecontroller import AddRateChange
+from org.netmelody.slcmonitor.controllers.ratechangecontroller import DeleteRateChange
+from org.netmelody.slcmonitor.controllers.ratechangecontroller import EditRateChange
 from org.netmelody.slcmonitor.controllers.borrowercontroller import ManageBorrowers
 from org.netmelody.slcmonitor.controllers.borrowercontroller import AddBorrower
 from org.netmelody.slcmonitor.controllers.borrowercontroller import DeleteBorrower
