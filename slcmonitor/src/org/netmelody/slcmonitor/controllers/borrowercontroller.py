@@ -14,7 +14,7 @@ class ManageBorrowers(webapp.RequestHandler):
   def get(self):
 
     user = users.get_current_user()
-    q = db.GqlQuery("SELECT * FROM Borrower WHERE identity = :1", user)
+    q = Borrower.gql('WHERE identity = :1', user)
     currentBorrower = q.get()
     
     borrowers = Borrower.gql('')
