@@ -6,8 +6,10 @@
     <h2>Record a new transaction</h2>
     <form action="/addtransaction" method="post">
       {{ form.as_p }}
+      <div><input type="radio" name="type" value="Withdrawal">Withdrawal</input></div>
+      <div><input type="radio" name="type" value="Dated Repayment">Dated Repayment</input></div>
+      <div><input type="radio" name="type" value="Distributed Repayment" checked="true">Distributed Repayment</input></div>
       <div><input type="hidden" name="loanKey" value="{{ loan.key }}"/></div>
-      <div><input type="text" name="type"/></div>
       <div><input type="submit" value="Record Transaction"/></div>
     </form>
 
