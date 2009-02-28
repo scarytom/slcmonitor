@@ -37,9 +37,15 @@ class AddTransaction(webapp.RequestHandler):
     def post(self):
         data = TransactionForm(data=self.request.POST)
         loan = Loan.get(self.request.get('loanKey'))
+        type = self.request.get('type')
         
         if data.is_valid():
             transaction = data.save(commit=False)
-            loan.makeWithdrawal(transaction.date, transaction.amount)
+            if 'WITHD' == type:
+                loan.makeWithdrawal(transaction.date, transaction.amount)
+            if 'DATED' == type:
+                loan.makeDatedRepayment(transaction.date, transaction.amount)
+            if 'DISTR' == type:
+                loan.makeDistributedRepayment(transaction.date, transaction.amount)
         
         self.redirect('/editloan?loanKey=%s' % loan.key())
